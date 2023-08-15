@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Number Over 9000</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #errorMessage, #errorMessage2 {
+            color: red;
+            margin-top: 10px;
+        }
+
+        button {
+            margin: 10px;
+        }
+
+        #iterations {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Double a Number Until It's Over 9000</h1>
+    <p>Enter a number:</p>
+    <input type="number" id="inputNumber" placeholder="Enter your number">
+    <button onclick="changeImageAndShowResult()">Submit</button>
+    <button onclick="resetPage()">Reset</button>
+    <div id="iterations"></div>
+    <div id="output"></div>
+    <div id="errorMessage"></div>
+    <div id="errorMessage2"></div>
+    <img id="myImage" src="https://media4.giphy.com/media/3rgXBwsbbD6zKG2nkY/giphy.gif?cid=ecf05e477s5x4uf0nh5krbp7k9tu71veo51k8of1zq0qv5l9&ep=v1_gifs_search&rid=giphy.gif&ct=g" style="width:350px; margin-top: 20px;">
+
+    <script>
+        const doubleNumberUntilOver9000 = num => {
+            if (num === 0 || num === 1 || num === -1 || num < 0) {
+                return null;
+            }
+          
+          if (num > 9000) {
+            return "Already over 9000";
+          }
+          
+            let originalNum = num;
+            let newNum = num;
+            let counter = 0;
+            let iterations = [];
+            
+            while (newNum <= 9000) {
+                newNum *= 2;
+                iterations.push(newNum);
+                counter++;
+            }
+            
+            return {
+                iterations: iterations,
+                result: `After being doubled ${counter} times, ${originalNum} becomes ${newNum} and is OVER 9000!!!!`
+            };
+        }
+
+        function changeImageAndShowResult() {
+    const number = parseFloat(document.getElementById('inputNumber').value);
+    
+    // Reset previous results
+    document.getElementById('output').innerText = '';
+    document.getElementById('errorMessage').innerText = '';
+    document.getElementById('errorMessage2').innerText = '';
+    document.getElementById('iterations').innerText = '';
+    
+    // Show the "Calculating results...." message immediately
+    document.getElementById('output').innerText = "Calculating results....";
+
+    // Use setTimeout to introduce the delay
+    setTimeout(() => {
+        const resultObj = doubleNumberUntilOver9000(number);
+
+        if (resultObj === null) {
+            document.getElementById('errorMessage').innerText = "That number will NEVER be over 9000";
+            document.getElementById('output').innerText = '';
+            return;
+        }
+        
+        if (resultObj === "Already over 9000") {
+            document.getElementById('errorMessage2').innerText = "That number is ALREADY OVER 9000!!!!";
+            document.getElementById('myImage').src = 'https://i.imgur.com/VlP5fgB.gif'; // Change the image here
+            document.getElementById('output').innerText = '';
+            return;
+        }
+
+        document.getElementById('iterations').innerText = "Doubled Values: " + resultObj.iterations.join(", ");
+        document.getElementById('output').innerText = resultObj.result;
+        document.getElementById('myImage').src = 'https://i.imgur.com/VlP5fgB.gif';
+    }, 1700);  // 3000 milliseconds = 3 seconds delay
+}
+
+
+        function resetPage() {
+            document.getElementById('inputNumber').value = '';
+            document.getElementById('output').innerText = '';
+            document.getElementById('errorMessage').innerText = '';
+            document.getElementById('errorMessage2').innerText = '';
+            document.getElementById('iterations').innerText = '';
+            document.getElementById('myImage').src = 'https://media4.giphy.com/media/3rgXBwsbbD6zKG2nkY/giphy.gif?cid=ecf05e477s5x4uf0nh5krbp7k9tu71veo51k8of1zq0qv5l9&ep=v1_gifs_search&rid=giphy.gif&ct=g';
+        }
+    </script>
+</body>
+
+</html>
