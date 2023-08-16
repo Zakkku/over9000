@@ -53,6 +53,13 @@
           if (num > 9000) {
             return "Already over 9000";
           }
+
+          if (num > 4500 && num < 9001) {
+        return {
+            iterations: [num * 2],
+            result: `After being doubled once, ${num} becomes ${num * 2} and is OVER 9000!!!!`
+        }
+    };
           
             let originalNum = num;
             let newNum = num;
