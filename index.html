@@ -95,6 +95,12 @@
     setTimeout(() => {
         const resultObj = doubleNumberUntilOver9000(number);
 
+        if (resultObj) {
+            const sound = document.getElementById('over9000Sound');
+            sound.currentTime = 0; // rewind to the start
+            sound.play();
+        }
+        
         if (resultObj === null) {
             document.getElementById('errorMessage').innerText = "That number will NEVER be over 9000";
             document.getElementById('output').innerText = '';
@@ -108,11 +114,7 @@
             return;
         }
 
-        if (resultObj) {
-            const sound = document.getElementById('over9000Sound');
-            sound.currentTime = 0; // rewind to the start
-            sound.play();
-        }
+        
 
         document.getElementById('iterations').innerText = "Doubled Values: " + resultObj.iterations.join(", ");
         document.getElementById('output').innerText = resultObj.result;
