@@ -107,6 +107,12 @@
             return;
         }
 
+        if (resultObj) {
+            const sound = document.getElementById('over9000Sound');
+            sound.currentTime = 0; // rewind to the start
+            sound.play();
+        }
+
         document.getElementById('iterations').innerText = "Doubled Values: " + resultObj.iterations.join(", ");
         document.getElementById('output').innerText = resultObj.result;
         document.getElementById('myImage').src = 'https://i.imgur.com/VlP5fgB.gif';
@@ -123,6 +129,8 @@
             document.getElementById('myImage').src = 'https://media4.giphy.com/media/3rgXBwsbbD6zKG2nkY/giphy.gif?cid=ecf05e477s5x4uf0nh5krbp7k9tu71veo51k8of1zq0qv5l9&ep=v1_gifs_search&rid=giphy.gif&ct=g';
         }
     </script>
+
+<audio id="over9000Sound" src="https://od.lk/s/MTRfMzEzMjM0ODVf/y2mate.is%20-%20it_s_over_9000_in_different_languages-nl7M--nfQX0-192k-1692155583.mp3" preload="auto"></audio>
 </body>
 
 </html>
