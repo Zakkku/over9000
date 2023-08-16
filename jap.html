@@ -117,6 +117,12 @@ a:visited {
     setTimeout(() => {
         const resultObj = doubleNumberUntilOver9000(number);
 
+        if (resultObj) {
+            const sound = document.getElementById('over9000Sound');
+            sound.currentTime = 0; // rewind to the start
+            sound.play();
+        }
+
         if (resultObj === null) {
             document.getElementById('errorMessage').innerText = "その数字が一生9000を超えない";
             document.getElementById('output').innerText = '';
@@ -130,11 +136,7 @@ a:visited {
             return;
         }
       
-      if (resultObj) {
-            const sound = document.getElementById('over9000Sound');
-            sound.currentTime = 0; // rewind to the start
-            sound.play();
-        }
+      
       
 
         document.getElementById('iterations').innerText = "倍にした値: " + resultObj.iterations.join(", ");
