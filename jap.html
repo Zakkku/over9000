@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>9000超えるまで数字を2倍</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            text-align: center;
+        }
+
+        #output {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        #errorMessage, #errorMessage2 {
+            color: red;
+            margin-top: 10px;
+        }
+
+        button {
+            margin: 10px;
+        }
+
+        #iterations {
+            margin-top: 20px;
+        }
+      
+      header {
+        text-align: right;
+        margin-top: -10px;
+      }
+      
+      /* mouse over link */
+a:hover {
+  color: hotpink;
+}
+      
+      /* visited link */
+a:visited {
+  color: purple;
+}
+    </style>
+</head>
+
+<body>
+  <header><a href="#" target="_blank">English</a></header>
+    <h1>9000超えるまで数字を2倍</h1>
+  <h3>( 警告: このアプリは一部の結果で音を出します )</h3>
+    <p>数字を入力してください:</p>
+    <input type="number" id="inputNumber" placeholder="数字を入力してください">
+    <button onclick="changeImageAndShowResult()">送信</button>
+    <button onclick="resetPage()">リセット</button>
+    <div id="iterations"></div>
+    <div id="output"></div>
+    <div id="errorMessage"></div>
+    <div id="errorMessage2"></div>
+    <img id="myImage" src="https://media4.giphy.com/media/3rgXBwsbbD6zKG2nkY/giphy.gif?cid=ecf05e477s5x4uf0nh5krbp7k9tu71veo51k8of1zq0qv5l9&ep=v1_gifs_search&rid=giphy.gif&ct=g" style="width:350px; margin-top: 20px;">
+
+    <script>
+        const doubleNumberUntilOver9000 = num => {
+            if (num <= 0) {
+                return null;
+            }
+          
+          if (num > 9000) {
+            return "Already over 9000";
+          }
+          
+         if (num > 4500 && num < 9001) {
+        return {
+            iterations: [num * 2],
+            result: `${num}を二倍して、 ${num * 2}になって、そして9000を超えている!!!!`
+        }
+    };
+  
+          
+            let originalNum = num;
+            let newNum = num;
+            let counter = 0;
+            let iterations = [];
+            
+            while (newNum <= 9000) {
+                newNum *= 2;
+                iterations.push(newNum);
+                counter++;
+            }
+            
+            return {
+                iterations: iterations,
+                result: `${originalNum}を ${counter}回　倍にしたら、${newNum}になって、そして9000を超えている!!!!`
+              
+            };
+        }
+
+        function changeImageAndShowResult() {
+    const number = parseFloat(document.getElementById('inputNumber').value);
+    
+    // Reset previous results
+    document.getElementById('output').innerText = '';
+    document.getElementById('errorMessage').innerText = '';
+    document.getElementById('errorMessage2').innerText = '';
+    document.getElementById('iterations').innerText = '';
+    
+    // Show the "Calculating results...." message immediately
+    document.getElementById('output').innerText = "処理している....";
+
+    // Use setTimeout to introduce the delay
+    setTimeout(() => {
+        const resultObj = doubleNumberUntilOver9000(number);
+
+        if (resultObj === null) {
+            document.getElementById('errorMessage').innerText = "その数字が一生9000を超えない";
+            document.getElementById('output').innerText = '';
+            return;
+        }
+        
+        if (resultObj === "Already over 9000") {
+            document.getElementById('errorMessage2').innerText = "その数字はもう9000を超えている!!!!";
+            document.getElementById('myImage').src = 'https://i.imgur.com/VlP5fgB.gif'; // Change the image here
+            document.getElementById('output').innerText = '';
+            return;
+        }
+      
+      if (resultObj) {
+            const sound = document.getElementById('over9000Sound');
+            sound.currentTime = 0; // rewind to the start
+            sound.play();
+        }
+      
+
+        document.getElementById('iterations').innerText = "倍にした値: " + resultObj.iterations.join(", ");
+        document.getElementById('output').innerText = resultObj.result;
+        document.getElementById('myImage').src = 'https://i.imgur.com/VlP5fgB.gif';
+    }, 1700);  // 3000 milliseconds = 3 seconds delay
+}
+
+
+        function resetPage() {
+            document.getElementById('inputNumber').value = '';
+            document.getElementById('output').innerText = '';
+            document.getElementById('errorMessage').innerText = '';
+            document.getElementById('errorMessage2').innerText = '';
+            document.getElementById('iterations').innerText = '';
+            document.getElementById('myImage').src = 'https://media4.giphy.com/media/3rgXBwsbbD6zKG2nkY/giphy.gif?cid=ecf05e477s5x4uf0nh5krbp7k9tu71veo51k8of1zq0qv5l9&ep=v1_gifs_search&rid=giphy.gif&ct=g';
+        }
+    </script>
+  <audio id="over9000Sound" src="https://od.lk/s/MTRfMzEzNDQzNDlf/y2mate.is%20-%20Over%209000%20Dragon%20Ball%20Z%20Sound%20Effect%20Download%20Link%20HD-KrargTltAJY-192k-1692177637.mp3" preload="auto"></audio>
+
+
+</body>
+
+</html>
